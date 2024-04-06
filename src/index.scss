@@ -1,3 +1,12 @@
+@import "vars";
+
 * {
-	background-color: red;
+    margin: 0;
+    padding: 0;
+    background-color: $main-color;
+    font: {
+        size: 32px;
+        family: "SF Pro Display";
+    }
+    color: white;
 }

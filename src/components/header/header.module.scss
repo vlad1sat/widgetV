@@ -1,58 +1,58 @@
 @import "../../vars";
 
 .header {
-	width: 100%;
-	height: 100px;
-	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-	position: fixed;
-	display: flex;
+    width: 100%;
+    height: 100px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    display: flex;
+    z-index: 10;
+    margin-bottom: 20px;
 
-	@media screen and (max-width: 1600px) {
-		height: 80px;
-	}
+    @media screen and (max-width: 1600px) {
+        height: 80px;
+        margin-bottom: 10px;
+    }
 
-	@media screen and (max-width: 769px){
-		height: 60px;
-	}
+    @media screen and (max-width: 769px) {
+        height: 60px;
+    }
 }
 
 .title {
-	font: {
-		weight: bold;
-		size: 40px;
-	};
-	margin: 0 auto;
-	line-height: 100px;
-	color: white;
-	@media screen and (max-width: 1600px) {
-		font-size: 32px;
-		line-height: 80px;
-	}
+    font: {
+        weight: bold;
+        size: 40px;
+    }
+    margin: 0 auto;
+    line-height: 100px;
+    color: white;
+    @media screen and (max-width: 1600px) {
+        font-size: 32px;
+        line-height: 80px;
+    }
 
-	@media screen and (max-width: 769px) {
-		font-size: 24px;
-		line-height: 60px;
-	}
-
+    @media screen and (max-width: 769px) {
+        font-size: 24px;
+        line-height: 60px;
+    }
 }
 
 .info {
-	font: {
-		size: 24px;
-	};
-	margin: auto 30px;
-	float: right;
-	text-decoration: none;
-	@media screen and (max-width: 1600px){
-		font-size: 20px;
-	}
-	@media screen and (max-width: 769px){
-		font-size: 14px;
-		margin: auto 10px;
-	}
+    font: {
+        size: 24px;
+    }
+    margin: auto 30px;
+    float: right;
+    text-decoration: none;
+    @media screen and (max-width: 1600px) {
+        font-size: 20px;
+    }
+    @media screen and (max-width: 769px) {
+        font-size: 14px;
+        margin: auto 10px;
+    }
 }
 
 .info:hover {
-	transform: scale(1.05);
-	color: $blue-color;
+    transform: scale(1.05);
 }

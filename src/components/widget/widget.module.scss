@@ -1,0 +1,32 @@
+.widget {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 400px;
+    height: 250px;
+    background-color: #303030;
+    margin: 20px auto;
+}
+
+.widget:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 10px 0 rgba(17, 17, 17, 0.25);
+}
+
+.title {
+    margin-left: 25px;
+    padding-top: 20px;
+}
+
+.sizeTd {
+    width: 33%;
+}
+
+.btnDelete {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content {
+    margin: 25px;
+    white-space: pre-wrap;
+}

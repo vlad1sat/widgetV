@@ -1,10 +1,12 @@
 import Widget from "@/components/widget/Widget.tsx";
-import { useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import IWidget from "@/interfaces/IWidget.ts";
+import IAllWidgets from "@/interfaces/IAllWidgets.ts";
 
-const params = {
-    dateStyle: "full",
-    timeStyle: "long",
-};
+interface ITimeWidget {
+    id: string;
+    column: keyof IAllWidgets;
+}
 
 const contentTime = (time: Date): string => {
     const day = new Intl.DateTimeFormat("en-GB", {
@@ -20,13 +22,12 @@ const contentTime = (time: Date): string => {
         second: "numeric",
     }).format(time);
 
-    return (
-    `Day: ${day}
+    return `Day: ${day}
 Time: ${dayTime}
-    `);
+    `;
 };
 
-const TimeWidget = () => {
+const TimeWidget: FC<ITimeWidget> = ({ id, column }) => {
     const [time, setTime] = useState<Date>(() => new Date());
 
     useEffect(() => {
@@ -37,7 +38,17 @@ const TimeWidget = () => {
         return () => clearTimeout(timer);
     });
 
-    return <Widget title="Time" content={contentTime(time)} />;
+    return (
+        <Widget
+            widget={{
+                title: "Time",
+                content: contentTime(time),
+                type: "time",
+                id,
+            }}
+            column={column}
+        />
+    );
 };
 
 export default TimeWidget;

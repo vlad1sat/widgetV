@@ -9,7 +9,6 @@ const BodyWidgets: FC = () => {
             <tr>
                 <TimeWidget />
                 <TimeWidget />
-                <OpenWidget />
             </tr>
             <tr></tr>
         </tbody>

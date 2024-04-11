@@ -1,12 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import IAllWidgets from "@/interfaces/IAllWidgets.ts";
-import { ReactElement } from "react";
 import INowWidget from "@/interfaces/INowWidget.ts";
-import IWidget, { IPrevWidget } from "@/interfaces/IWidget.ts";
-import IBaseCustomWidget from "@/components/widgets/IBaseCustomWidget.ts";
 import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
 import IEventDragInfo from "@/interfaces/IEventDragInfo.ts";
-import { k } from "vite/dist/node/types.d-aGj9QkWt";
 
 interface IChooseWidget {
     state: boolean;
@@ -62,21 +58,7 @@ export default class StateApp {
     }
 
     public set eventDragInfo(state: IEventDragInfo | null) {
-        this._eventDragInfo = state
-    }
-    public addWidget<T extends IBaseStructWidget>(
-        column: keyof IAllWidgets,
-        widget: T,
-    ) {
-        this._allWidgets[column].push(widget);
-        this.chooseWidget = defaultChooseWidget;
-    }
-
-    public deleteWidget(column: keyof IAllWidgets, key: string) {
-        const idx = this.allWidget[column].findIndex((el) => el.id === key)
-        const deletedWidget = this.allWidget[column][idx];
-        this.allWidget[column].splice(idx, 1);
-        return deletedWidget;
+        this._eventDragInfo = state;
     }
 
     public setWidget(state: INowWidget) {
@@ -89,8 +71,23 @@ export default class StateApp {
         this.showWidget = false;
     }
 
-    public get allWidget() {
+    public get allWidgets() {
         return this._allWidgets;
+    }
+
+    public addWidget<T extends IBaseStructWidget>(
+        column: keyof IAllWidgets,
+        widget: T,
+    ) {
+        this._allWidgets[column].push(widget);
+        this.chooseWidget = defaultChooseWidget;
+    }
+
+    public deleteWidget(column: keyof IAllWidgets, key: string) {
+        const idx = this.allWidgets[column].findIndex((el) => el.id === key);
+        const deletedWidget = this.allWidgets[column][idx];
+        this.allWidgets[column].splice(idx, 1);
+        return deletedWidget;
     }
 
     public changeAllWidget<T extends IBaseStructWidget>(
@@ -98,7 +95,7 @@ export default class StateApp {
         id: string,
         newEl: T,
     ) {
-        this._allWidgets[column] = this._allWidgets[column].map((el) => {
+        this.allWidgets[column] = this.allWidgets[column].map((el) => {
             if (el.id !== id) return el;
             return newEl;
         });

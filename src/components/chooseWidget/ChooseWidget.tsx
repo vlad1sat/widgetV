@@ -8,12 +8,15 @@ import WeatherWidget, {
     IWeatherWidget,
 } from "@/components/widgets/weatherWidget/WeatherWidget.tsx";
 import { TypeWidget } from "@/interfaces/IWidget.ts";
+import ModalWindow from "@/components/modalWindow/ModalWindow.tsx";
 import { defaultChooseWidget } from "@/context/stateApp.ts";
 
 const ChooseWidget = () => {
     const { stateApp } = useContext(Context);
     const { column } = stateApp.chooseWidget;
     const id = String(Date.now());
+    const [typeWidget, setTypeWidget] = useState<TypeWidget | null>(null);
+
     const propsDemoWidget = useMemo(
         () => ({
             id,
@@ -22,7 +25,6 @@ const ChooseWidget = () => {
         }),
         [id, column],
     );
-    const [typeWidget, setTypeWidget] = useState<TypeWidget | null>(null);
 
     useEffect(() => {
         const nowColumn = column || "first";
@@ -44,17 +46,17 @@ const ChooseWidget = () => {
     }, [typeWidget]);
 
     return (
-        <div className={styles.background}>
-            <div className={styles.modal}>
-                <h3>Выберите виджет</h3>
-                <div onClick={() => setTypeWidget(() => "time")}>
-                    <TimeWidget {...propsDemoWidget} />
-                </div>
-                <div onClick={() => setTypeWidget(() => "weather")}>
-                    <WeatherWidget {...propsDemoWidget} />
-                </div>
+        <ModalWindow
+            closeWindow={() => (stateApp.chooseWidget = defaultChooseWidget)}
+        >
+            <h3>Выберите виджет</h3>
+            <div onClick={() => setTypeWidget(() => "time")}>
+                <TimeWidget {...propsDemoWidget} />
             </div>
-        </div>
+            <div onClick={() => setTypeWidget(() => "weather")}>
+                <WeatherWidget {...propsDemoWidget} />
+            </div>
+        </ModalWindow>
     );
 };
 

@@ -1,4 +1,4 @@
-import IWeather from "../../api/services/IWeather.ts";
+import IWeather from "@/api/services/IWeather.ts";
 
 class WeatherLogic {
     public contentWeather(data: IWeather) {

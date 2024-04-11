@@ -1,10 +1,9 @@
 import Widget from "@/components/widget/Widget.tsx";
 import { FC, useEffect, useState } from "react";
-import IAllWidgets from "@/interfaces/IAllWidgets.ts";
 import timeLogic from "@/tools/TimeLogic.ts";
-import IBaseCustomWidget from "@/components/widgets/IBaseCustomWidget.ts";
+import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
 
-export interface ITimeWidget extends IBaseCustomWidget {
+export interface ITimeWidget extends IBaseStructWidget {
     timeZone?: string;
 }
 

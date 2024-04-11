@@ -12,14 +12,31 @@ interface IColumn {
 
 const Column: FC<IColumn> = observer(({ column }) => {
     const { stateApp } = useContext(Context);
+    const dropElement = () => {
+        if (!stateApp.eventDragInfo) return;
+        const { id, column: columnDrag } = stateApp.eventDragInfo;
+        const deletedWidget = stateApp.deleteWidget(columnDrag, id);
+        stateApp.addWidget(column, deletedWidget);
+    };
+
+    const drawWidgets = () => {
+        return stateApp.allWidgets[column].map((el) => {
+            const { type, id } = el;
+            const props = { ...el, column };
+            switch (type) {
+                case "time":
+                    return <TimeWidget key={id} {...props} />;
+                case "weather":
+                    return <WeatherWidget key={id} {...props} />;
+                default:
+                    return null;
+            }
+        });
+    };
+
     return (
         <div
-            onDrop={() => {
-                if (!stateApp.eventDragInfo) return;
-                const {id, column: columnDrag} = stateApp.eventDragInfo;
-                const deletedWidget = stateApp.deleteWidget(columnDrag, id);
-                stateApp.addWidget(column, deletedWidget);
-            }}
+            onDrop={dropElement}
             onDragOver={(e) => e.preventDefault()}
             className={styles.column}
         >
@@ -38,18 +55,7 @@ const Column: FC<IColumn> = observer(({ column }) => {
                     add widget
                 </button>
             </div>
-            {stateApp.allWidget[column].map((el) => {
-                const { type, id } = el;
-                const props = { ...el, column };
-                switch (type) {
-                    case "time":
-                        return <TimeWidget key={id} {...props} />;
-                    case "weather":
-                        return <WeatherWidget key={id} {...props} />;
-                    default:
-                        return null;
-                }
-            })}
+            {drawWidgets()}
         </div>
     );
 });

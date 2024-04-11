@@ -1,12 +1,11 @@
 import Widget from "@/components/widget/Widget.tsx";
-import timeLogic from "@/tools/TimeLogic.ts";
-import IBaseCustomWidget from "@/components/widgets/IBaseCustomWidget.ts";
 import { FC } from "react";
 import { useQuery } from "@tanstack/react-query";
-import WeatherService from "../../../../api/services/WeatherService.ts";
+import WeatherService from "@/api/services/WeatherService.ts";
 import weatherLogic from "@/tools/WeatherLogic.ts";
+import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
 
-export interface IWeatherWidget extends IBaseCustomWidget {
+export interface IWeatherWidget extends IBaseStructWidget {
     city?: string;
 }
 

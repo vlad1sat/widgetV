@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Column from "@/components/th/Column.tsx";
+import Column from "@/components/column/Column.tsx";
 import styles from "./table.module.scss";
 
 const Table: FC = () => {

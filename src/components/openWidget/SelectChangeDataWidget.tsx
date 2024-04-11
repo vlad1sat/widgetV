@@ -1,17 +1,20 @@
 import React, { ChangeEvent, FC, ReactElement, useContext } from "react";
-import TimeWidget, { ITimeWidget } from "@/components/widgets/timeWidget/TimeWidget.tsx";
+import TimeWidget, {
+    ITimeWidget,
+} from "@/components/widgets/timeWidget/TimeWidget.tsx";
 import timeLogic from "@/tools/TimeLogic.ts";
 import { Context } from "@/context/context.ts";
 import INowWidget from "@/interfaces/INowWidget.ts";
 import weatherLogic from "@/tools/WeatherLogic.ts";
-import WeatherWidget, { IWeatherWidget } from "@/components/widgets/weatherWidget/WeatherWidget.tsx";
-
+import WeatherWidget, {
+    IWeatherWidget,
+} from "@/components/widgets/weatherWidget/WeatherWidget.tsx";
 
 interface ISelectChangeDataWidget {
-    widget: INowWidget
+    widget: INowWidget;
 }
 
-const SelectChangeDataWidget: FC<ISelectChangeDataWidget> = ({widget}) => {
+const SelectChangeDataWidget: FC<ISelectChangeDataWidget> = ({ widget }) => {
     const { stateApp } = useContext(Context);
 
     const { type, id, column } = widget;
@@ -19,23 +22,23 @@ const SelectChangeDataWidget: FC<ISelectChangeDataWidget> = ({widget}) => {
 
     const changeWidget = (e: ChangeEvent<HTMLSelectElement>) => {
         const newID = String(Date.now());
-        const props = { id: newID, column, isChange: true}
+        const props = { id: newID, column, isChange: true };
         switch (type) {
             case "time":
-                stateApp.changeAllWidget<ITimeWidget>(
-                    column,
-                    id,
-                    {...props, type: "time", timeZone: e.target.value}
-                );
+                stateApp.changeAllWidget<ITimeWidget>(column, id, {
+                    ...props,
+                    type: "time",
+                    timeZone: e.target.value,
+                });
                 break;
             case "weather":
-                stateApp.changeAllWidget<IWeatherWidget>(
-                    column,
-                    id,
-                    {...props, type: "weather", city: e.target.value}
-                );
+                stateApp.changeAllWidget<IWeatherWidget>(column, id, {
+                    ...props,
+                    type: "weather",
+                    city: e.target.value,
+                });
         }
-    }
+    };
 
     return (
         <select

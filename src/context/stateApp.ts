@@ -5,6 +5,8 @@ import INowWidget from "@/interfaces/INowWidget.ts";
 import IWidget, { IPrevWidget } from "@/interfaces/IWidget.ts";
 import IBaseCustomWidget from "@/components/widgets/IBaseCustomWidget.ts";
 import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
+import IEventDragInfo from "@/interfaces/IEventDragInfo.ts";
+import { k } from "vite/dist/node/types.d-aGj9QkWt";
 
 interface IChooseWidget {
     state: boolean;
@@ -25,6 +27,7 @@ export default class StateApp {
         third: [],
     };
     private _nowWidget: INowWidget | null = null;
+    private _eventDragInfo: IEventDragInfo | null = null;
 
     constructor() {
         makeAutoObservable(this);
@@ -54,15 +57,26 @@ export default class StateApp {
         this._nowWidget = state;
     }
 
-    public addWidget<T extends IBaseStructWidget>(column: keyof IAllWidgets, widget: T) {
+    public get eventDragInfo() {
+        return this._eventDragInfo;
+    }
+
+    public set eventDragInfo(state: IEventDragInfo | null) {
+        this._eventDragInfo = state
+    }
+    public addWidget<T extends IBaseStructWidget>(
+        column: keyof IAllWidgets,
+        widget: T,
+    ) {
         this._allWidgets[column].push(widget);
         this.chooseWidget = defaultChooseWidget;
     }
 
     public deleteWidget(column: keyof IAllWidgets, key: string) {
-        this._allWidgets[column] = this._allWidgets[column].filter(
-            (el) => el.id !== key,
-        );
+        const idx = this.allWidget[column].findIndex((el) => el.id === key)
+        const deletedWidget = this.allWidget[column][idx];
+        this.allWidget[column].splice(idx, 1);
+        return deletedWidget;
     }
 
     public setWidget(state: INowWidget) {

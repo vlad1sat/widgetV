@@ -3,7 +3,8 @@ import { TypeWidget } from "@/interfaces/IWidget.ts";
 
 interface IBaseStructWidget {
     column: keyof IAllWidgets;
-    type?: TypeWidget
+    id: string;
+    type?: TypeWidget;
     isDemo?: boolean;
     isChange?: boolean;
 }

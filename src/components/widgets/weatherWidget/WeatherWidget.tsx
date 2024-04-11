@@ -34,19 +34,21 @@ const WeatherWidget: FC<IWeatherWidget> = ({
 
     return (
         <>
-            {data && <Widget
-                widget={{
-                    title: "Weather",
-                    content: weatherLogic.contentWeather(data.data),
-                    type: "weather",
-                    id,
-                }}
-                column={column}
-                isDemo={isDemo}
-                isChange={isChange}
-            />}
+            {data && (
+                <Widget
+                    widget={{
+                        title: "Weather",
+                        content: weatherLogic.contentWeather(data.data),
+                        type: "weather",
+                        id,
+                    }}
+                    id={id}
+                    column={column}
+                    isDemo={isDemo}
+                    isChange={isChange}
+                />
+            )}
         </>
-
     );
 };
 

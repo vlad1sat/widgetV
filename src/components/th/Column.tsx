@@ -13,7 +13,16 @@ interface IColumn {
 const Column: FC<IColumn> = observer(({ column }) => {
     const { stateApp } = useContext(Context);
     return (
-        <div onDrop={(e) => console.log(e)} onDragOver={(e) => console.log("e", e)} className={styles.column}>
+        <div
+            onDrop={() => {
+                if (!stateApp.eventDragInfo) return;
+                const {id, column: columnDrag} = stateApp.eventDragInfo;
+                const deletedWidget = stateApp.deleteWidget(columnDrag, id);
+                stateApp.addWidget(column, deletedWidget);
+            }}
+            onDragOver={(e) => e.preventDefault()}
+            className={styles.column}
+        >
             <h3 className={styles.title}>{column}</h3>
             <div className={styles.btn}>
                 <button
@@ -30,13 +39,13 @@ const Column: FC<IColumn> = observer(({ column }) => {
                 </button>
             </div>
             {stateApp.allWidget[column].map((el) => {
-                const {type, id} = el;
-                const props = {...el, column};
+                const { type, id } = el;
+                const props = { ...el, column };
                 switch (type) {
                     case "time":
-                        return <TimeWidget key={id} {...props} />
+                        return <TimeWidget key={id} {...props} />;
                     case "weather":
-                        return <WeatherWidget key={id} {...props} />
+                        return <WeatherWidget key={id} {...props} />;
                     default:
                         return null;
                 }

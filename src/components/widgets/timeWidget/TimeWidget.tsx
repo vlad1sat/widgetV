@@ -33,6 +33,7 @@ const TimeWidget: FC<ITimeWidget> = ({
                 type: "time",
                 id,
             }}
+            id={id}
             column={column}
             isDemo={isDemo}
             isChange={isChange}

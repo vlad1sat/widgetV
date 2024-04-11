@@ -3,9 +3,9 @@ import IWidget, { IPrevWidget } from "@/interfaces/IWidget.ts";
 import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
 
 interface IAllWidgets {
-    first: any[];
-    second: any[];
-    third: any[];
+    first: IBaseStructWidget[];
+    second: IBaseStructWidget[];
+    third: IBaseStructWidget[];
 }
 
 export default IAllWidgets;

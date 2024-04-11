@@ -1,8 +1,12 @@
 import styles from "./chooseWidget.module.scss";
-import TimeWidget, { ITimeWidget } from "@/components/widgets/timeWidget/TimeWidget.tsx";
+import TimeWidget, {
+    ITimeWidget,
+} from "@/components/widgets/timeWidget/TimeWidget.tsx";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { Context } from "@/context/context.ts";
-import WeatherWidget, { IWeatherWidget } from "@/components/widgets/weatherWidget/WeatherWidget.tsx";
+import WeatherWidget, {
+    IWeatherWidget,
+} from "@/components/widgets/weatherWidget/WeatherWidget.tsx";
 import { TypeWidget } from "@/interfaces/IWidget.ts";
 import { defaultChooseWidget } from "@/context/stateApp.ts";
 
@@ -25,10 +29,16 @@ const ChooseWidget = () => {
         const props = { id, column: nowColumn };
         switch (typeWidget) {
             case "time":
-                stateApp.addWidget<ITimeWidget>(nowColumn, {...props, type: "time"} );
+                stateApp.addWidget<ITimeWidget>(nowColumn, {
+                    ...props,
+                    type: "time",
+                });
                 break;
             case "weather":
-                stateApp.addWidget<IWeatherWidget>(nowColumn, {...props, type: "weather"});
+                stateApp.addWidget<IWeatherWidget>(nowColumn, {
+                    ...props,
+                    type: "weather",
+                });
                 break;
         }
     }, [typeWidget]);

@@ -11,7 +11,7 @@ class WeatherLogic {
         `;
     }
 
-    public readonly cities: string[] = ["Yekaterinburg", "Moscow", "Sidney"]
+    public readonly cities: string[] = ["Yekaterinburg", "Moscow", "Sidney"];
 }
 
 export default new WeatherLogic();

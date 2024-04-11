@@ -5,9 +5,9 @@ import styles from "./table.module.scss";
 const Table: FC = () => {
     return (
         <div className={styles.table}>
-            <Column title="first" />
-            <Column title="second" />
-            <Column title="third" />
+            <Column column="first" />
+            <Column column="second" />
+            <Column column="third" />
         </div>
     );
 };

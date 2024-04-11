@@ -1,19 +1,41 @@
 import { makeAutoObservable } from "mobx";
-import IWidget from "@/interfaces/IWidget.ts";
 import IAllWidgets from "@/interfaces/IAllWidgets.ts";
 import { ReactElement } from "react";
+import INowWidget from "@/interfaces/INowWidget.ts";
+import IWidget, { IPrevWidget } from "@/interfaces/IWidget.ts";
+import IBaseCustomWidget from "@/components/widgets/IBaseCustomWidget.ts";
+import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
+
+interface IChooseWidget {
+    state: boolean;
+    column: keyof IAllWidgets | null;
+}
+
+export const defaultChooseWidget: IChooseWidget = {
+    state: false,
+    column: null,
+};
 
 export default class StateApp {
     private _showWidget: boolean = false;
+    private _chooseWidget: IChooseWidget = defaultChooseWidget;
     private _allWidgets: IAllWidgets = {
         first: [],
         second: [],
         third: [],
     };
-    private _nowWidget: IWidget | null = null;
+    private _nowWidget: INowWidget | null = null;
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    public get chooseWidget(): IChooseWidget {
+        return this._chooseWidget;
+    }
+
+    public set chooseWidget(state: IChooseWidget) {
+        this._chooseWidget = state;
     }
 
     public get showWidget(): boolean {
@@ -28,22 +50,22 @@ export default class StateApp {
         return this._nowWidget;
     }
 
-    public set nowWidget(state: IWidget | null) {
+    public set nowWidget(state: INowWidget | null) {
         this._nowWidget = state;
     }
 
-    public addWidget(column: keyof IAllWidgets, widget: ReactElement) {
+    public addWidget<T extends IBaseStructWidget>(column: keyof IAllWidgets, widget: T) {
         this._allWidgets[column].push(widget);
+        this.chooseWidget = defaultChooseWidget;
     }
 
     public deleteWidget(column: keyof IAllWidgets, key: string) {
-        console.log(column, key);
         this._allWidgets[column] = this._allWidgets[column].filter(
-            (el) => el.key !== key,
+            (el) => el.id !== key,
         );
     }
 
-    public setWidget(state: IWidget) {
+    public setWidget(state: INowWidget) {
         this.nowWidget = state;
         this.showWidget = true;
     }
@@ -57,7 +79,14 @@ export default class StateApp {
         return this._allWidgets;
     }
 
-    private set allWidget(state: IAllWidgets) {
-        this._allWidgets = state;
+    public changeAllWidget<T extends IBaseStructWidget>(
+        column: keyof IAllWidgets,
+        id: string,
+        newEl: T,
+    ) {
+        this._allWidgets[column] = this._allWidgets[column].map((el) => {
+            if (el.id !== id) return el;
+            return newEl;
+        });
     }
 }

@@ -1,28 +1,36 @@
 import styles from "./widget.module.scss";
-import { FC, MouseEvent, useContext } from "react";
+import { FC, MouseEvent, useContext, useEffect, DragEvent } from "react";
 import { Context } from "@/context/context.ts";
 import IWidget from "@/interfaces/IWidget.ts";
-import IAllWidgets from "@/interfaces/IAllWidgets.ts";
+import INowWidget from "@/interfaces/INowWidget.ts";
+import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
 
 type EventClickWidget<T> = MouseEvent<T> & {
     _isDelete?: boolean;
 };
 
-interface IBlockWidget {
+interface IBlockWidget extends IBaseStructWidget {
     widget: IWidget;
-    column: keyof IAllWidgets;
 }
 
-const Widget: FC<IBlockWidget> = ({ widget, column }) => {
+const Widget: FC<IBlockWidget> = ({ widget, column, isDemo, isChange }) => {
     const { stateApp } = useContext(Context);
-    const { title, content } = widget;
+    const { title, content, id } = widget;
+    const nowWidget: INowWidget = { ...widget, column: column };
+
+    useEffect(() => {
+        if (isChange) {
+            stateApp.nowWidget = nowWidget;
+        }
+    }, [isChange]);
     return (
-        <div>
             <div
+                draggable={!isDemo}
+                onDragStart={(e) => e.preventDefault()}
                 className={styles.widget}
                 onClick={(e: EventClickWidget<HTMLDivElement>) => {
-                    if (e._isDelete) return;
-                    stateApp.setWidget(widget);
+                    if (e._isDelete || isDemo) return;
+                    stateApp.setWidget(nowWidget);
                 }}
             >
                 <h4 className={styles.title}>{title}</h4>
@@ -30,6 +38,7 @@ const Widget: FC<IBlockWidget> = ({ widget, column }) => {
                 <div className={styles.btnDelete}>
                     <button
                         onClick={(e: EventClickWidget<HTMLButtonElement>) => {
+                            if (isDemo) return;
                             e._isDelete = true;
                             stateApp.deleteWidget(column, widget.id);
                         }}
@@ -40,7 +49,6 @@ const Widget: FC<IBlockWidget> = ({ widget, column }) => {
                     </button>
                 </div>
             </div>
-        </div>
     );
 };
 

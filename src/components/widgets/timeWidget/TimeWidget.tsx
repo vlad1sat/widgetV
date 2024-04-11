@@ -1,33 +1,20 @@
 import Widget from "@/components/widget/Widget.tsx";
 import { FC, useEffect, useState } from "react";
-import IWidget from "@/interfaces/IWidget.ts";
 import IAllWidgets from "@/interfaces/IAllWidgets.ts";
+import timeLogic from "@/tools/TimeLogic.ts";
+import IBaseCustomWidget from "@/components/widgets/IBaseCustomWidget.ts";
 
-interface ITimeWidget {
-    id: string;
-    column: keyof IAllWidgets;
+export interface ITimeWidget extends IBaseCustomWidget {
+    timeZone?: string;
 }
 
-const contentTime = (time: Date): string => {
-    const day = new Intl.DateTimeFormat("en-GB", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    }).format(time);
-
-    const dayTime = new Intl.DateTimeFormat("en-GB", {
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-    }).format(time);
-
-    return `Day: ${day}
-Time: ${dayTime}
-    `;
-};
-
-const TimeWidget: FC<ITimeWidget> = ({ id, column }) => {
+const TimeWidget: FC<ITimeWidget> = ({
+    id,
+    column,
+    timeZone = timeLogic.defaultTimeZone,
+    isDemo,
+    isChange,
+}) => {
     const [time, setTime] = useState<Date>(() => new Date());
 
     useEffect(() => {
@@ -42,11 +29,13 @@ const TimeWidget: FC<ITimeWidget> = ({ id, column }) => {
         <Widget
             widget={{
                 title: "Time",
-                content: contentTime(time),
+                content: timeLogic.contentTime(time, timeZone),
                 type: "time",
                 id,
             }}
             column={column}
+            isDemo={isDemo}
+            isChange={isChange}
         />
     );
 };

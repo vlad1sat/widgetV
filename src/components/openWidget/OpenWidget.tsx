@@ -1,9 +1,10 @@
 import { FC, MouseEvent, useContext } from "react";
-import styles from "./openWidget.module.scss";
 import { Context } from "@/context/context.ts";
 import { observer } from "mobx-react-lite";
-import SelectChangeDataWidget from "@/components/openWidget/SelectChangeDataWidget.tsx";
+import SelectChangeDataWidget from "@/components/openWidget/selectChange/SelectChangeDataWidget.tsx";
 import ModalWindow from "@/components/modalWindow/ModalWindow.tsx";
+import styles from "./openWidget.module.scss";
+import Button from "@/components/UI/Button.tsx";
 
 type EventClickModal<T> = MouseEvent<T> & {
     _isClickClose?: boolean;
@@ -16,18 +17,18 @@ const OpenWidget: FC = observer(() => {
     const { title, content } = stateApp.nowWidget;
     return (
         <ModalWindow closeWindow={() => stateApp.cleanWidget()}>
-            <h3>{title}</h3>
-            <p>{content}</p>
+            <h3 className={styles.title}>{title}</h3>
+            <p className={styles.content}>{content}</p>
             <SelectChangeDataWidget widget={stateApp.nowWidget} />
-            <button
-                onClick={(e: EventClickModal<HTMLButtonElement>) => {
-                    e._isClickClose = true;
-                }}
-                type="button"
-                className="btn btn-danger float-end"
-            >
-                close
-            </button>
+            <div className={styles.btn}>
+                <Button
+                    onClick={(e: EventClickModal<HTMLButtonElement>) => {
+                        e._isClickClose = true;
+                    }}
+                >
+                    close
+                </Button>
+            </div>
         </ModalWindow>
     );
 });

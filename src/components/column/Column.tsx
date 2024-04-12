@@ -1,10 +1,11 @@
 import { FC, useContext } from "react";
-import styles from "./th.module.scss";
+import styles from "./column.module.scss";
 import IAllWidgets from "@/interfaces/IAllWidgets.ts";
 import { Context } from "@/context/context.ts";
 import { observer } from "mobx-react-lite";
 import TimeWidget from "@/components/widgets/timeWidget/TimeWidget.tsx";
 import WeatherWidget from "@/components/widgets/weatherWidget/WeatherWidget.tsx";
+import Button from "@/components/UI/Button.tsx";
 
 interface IColumn {
     column: keyof IAllWidgets;
@@ -42,18 +43,17 @@ const Column: FC<IColumn> = observer(({ column }) => {
         >
             <h3 className={styles.title}>{column}</h3>
             <div className={styles.btn}>
-                <button
-                    type="button"
-                    className="btn btn-outline-primary"
+                <Button
                     onClick={() =>
                         (stateApp.chooseWidget = {
                             state: true,
                             column,
                         })
                     }
+                    customStyle="borderBlue"
                 >
                     add widget
-                </button>
+                </Button>
             </div>
             {drawWidgets()}
         </div>

@@ -5,10 +5,14 @@
     padding: 0;
     background-color: $main-color;
     font: {
-        size: 20px;
+        size: 18px;
         family: "SF Pro Display";
     }
     color: white;
     list-style: none;
     text-decoration: none;
+}
+
+canvas {
+    z-index: -100 !important;
 }

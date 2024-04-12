@@ -1,4 +1,3 @@
-import styles from "./chooseWidget.module.scss";
 import TimeWidget, {
     ITimeWidget,
 } from "@/components/widgets/timeWidget/TimeWidget.tsx";
@@ -10,7 +9,7 @@ import WeatherWidget, {
 import { TypeWidget } from "@/interfaces/IWidget.ts";
 import ModalWindow from "@/components/modalWindow/ModalWindow.tsx";
 import { defaultChooseWidget } from "@/context/stateApp.ts";
-
+import styles from "./chooseWidget.module.scss";
 const ChooseWidget = () => {
     const { stateApp } = useContext(Context);
     const { column } = stateApp.chooseWidget;
@@ -49,12 +48,14 @@ const ChooseWidget = () => {
         <ModalWindow
             closeWindow={() => (stateApp.chooseWidget = defaultChooseWidget)}
         >
-            <h3>Выберите виджет</h3>
-            <div onClick={() => setTypeWidget(() => "time")}>
-                <TimeWidget {...propsDemoWidget} />
-            </div>
-            <div onClick={() => setTypeWidget(() => "weather")}>
-                <WeatherWidget {...propsDemoWidget} />
+            <h3 className={styles.title}>Выберите виджет</h3>
+            <div className={styles.blockWidgets}>
+                <div onClick={() => setTypeWidget(() => "time")}>
+                    <TimeWidget {...propsDemoWidget} />
+                </div>
+                <div onClick={() => setTypeWidget(() => "weather")}>
+                    <WeatherWidget {...propsDemoWidget} />
+                </div>
             </div>
         </ModalWindow>
     );

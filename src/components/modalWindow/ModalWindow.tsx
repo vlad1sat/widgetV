@@ -1,5 +1,5 @@
-import React, { FC, HTMLAttributes, MouseEvent, ReactNode } from "react";
-import styles from "@/components/openWidget/openWidget.module.scss";
+import { FC, HTMLAttributes, MouseEvent } from "react";
+import styles from "./modal.module.scss";
 
 type EventClickModal<T> = MouseEvent<T> & {
     _isClickClose?: boolean;

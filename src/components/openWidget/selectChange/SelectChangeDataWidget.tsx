@@ -5,6 +5,7 @@ import { Context } from "@/context/context.ts";
 import INowWidget from "@/interfaces/INowWidget.ts";
 import weatherLogic from "@/tools/WeatherLogic.ts";
 import { IWeatherWidget } from "@/components/widgets/weatherWidget/WeatherWidget.tsx";
+import styles from "./selectChange.module.scss";
 
 interface ISelectChangeDataWidget {
     widget: INowWidget;
@@ -38,20 +39,22 @@ const SelectChangeDataWidget: FC<ISelectChangeDataWidget> = ({ widget }) => {
     };
 
     return (
-        <select
-            onChange={changeWidget}
-            className="form-select form-select-sm"
-            aria-label=".form-select-sm example"
-        >
-            <option selected disabled>
-                {type === "time" ? "Change time zone:" : "Change city:"}
-            </option>
-            {options.map((option) => (
-                <option key={option} value={option}>
-                    {option}
+        <div>
+            <select
+                onChange={changeWidget}
+                className={`form-select form-select-sm ${styles.select}`}
+                aria-label=".form-select-sm example"
+            >
+                <option selected disabled>
+                    {type === "time" ? "Change time zone:" : "Change city:"}
                 </option>
-            ))}
-        </select>
+                {options.map((option) => (
+                    <option key={option} value={option}>
+                        {option}
+                    </option>
+                ))}
+            </select>
+        </div>
     );
 };
 

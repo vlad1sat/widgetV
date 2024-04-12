@@ -25,11 +25,9 @@ class TimeLogic {
             timeZone,
         }).format(time);
 
-        return `
-        Day: ${day}
-        Time: ${dayTime}
-        TimeZone: ${timeZone}
-    `;
+        return `Day: ${day}
+Time: ${dayTime}
+TimeZone: ${timeZone}`;
     }
 }
 

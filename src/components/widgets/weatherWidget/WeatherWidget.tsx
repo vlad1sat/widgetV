@@ -1,9 +1,10 @@
 import Widget from "@/components/widget/Widget.tsx";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import WeatherService from "@/api/services/WeatherService.ts";
 import weatherLogic from "@/tools/WeatherLogic.ts";
 import IBaseStructWidget from "@/components/widgets/IBaseStructWidget.ts";
+import styles from "./spinner.module.scss";
+import WeatherService from "@/api/services/WeatherService.ts";
 
 export interface IWeatherWidget extends IBaseStructWidget {
     city?: string;
@@ -16,17 +17,28 @@ const WeatherWidget: FC<IWeatherWidget> = ({
     city = "Yekaterinburg",
     id,
 }) => {
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, isError } = useQuery({
         queryFn: () => WeatherService.getWeather(city),
         queryKey: ["weather", city],
         retry: 3,
         staleTime: 1000,
     });
 
+    useEffect(() => {
+        isError && alert("Ошибка сервера на получение данных о погоде!");
+    }, [isError]);
+
     if (isLoading) {
         return (
-            <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
+            <div
+                className={`d-flex justify-content-center align-items-center ${styles.spinner}`}
+            >
+                <div
+                    className="spinner-border text-primary spinner-border-sm"
+                    role="status"
+                >
+                    <span className="visually-hidden">Loading...</span>
+                </div>
             </div>
         );
     }

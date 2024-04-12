@@ -5,24 +5,71 @@
     height: 250px;
     background-color: #303030;
     margin: 20px auto;
+    padding: 25px;
+    animation: animation 1s forwards;
+    @media screen and (max-width: 1600px) {
+        width: 350px;
+        height: 200px;
+        padding: 20px;
+    }
+
+    @media screen and (max-width: 1200px) {
+        width: 250px;
+        height: 150px;
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    @media screen and (max-width: 769px) {
+        width: 120px;
+        height: 80px;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px auto;
+    }
 }
 
 .widget:hover {
     transform: scale(1.01);
     box-shadow: 0 4px 10px 0 rgba(17, 17, 17, 0.25);
+    cursor: grab;
 }
 
 .title {
-    margin-left: 25px;
-    padding-top: 20px;
-}
-
-.btnDelete {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px;
+    font-size: 24px;
+    @media screen and (max-width: 1600px) {
+        font-size: 20px;
+    }
+    @media screen and (max-width: 769px) {
+        font-size: 10px;
+        margin-bottom: 0.1rem;
+    }
 }
 
 .content {
     white-space: pre-wrap;
+    font-size: 16px;
+    height: 50%;
+    @media screen and (max-width: 1600px) {
+        font-size: 14px;
+        margin-bottom: 0.5rem;
+    }
+    @media screen and (max-width: 769px) {
+        font-size: 7px;
+        margin-bottom: 8px;
+    }
+}
+
+header {
+    opacity: 0;
+    animation: animation 1s forwards;
+}
+
+@keyframes animation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

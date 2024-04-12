@@ -13,8 +13,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 769px) {
+        flex-wrap: wrap;
+    }
 }
 
 .column {
     width: 33%;
+    @media screen and (max-width: 769px) {
+        width: 50%;
+    }
 }

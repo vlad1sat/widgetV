@@ -1,4 +1,8 @@
-# React + TypeScript + Vite
+# WidgetV
+
+Виджеты с настройкой параметров и drap and drop
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
